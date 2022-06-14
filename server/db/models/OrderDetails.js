@@ -3,7 +3,7 @@ const db = require("../db");
 
 const OrderDetails = db.define("orderDetails", {
   items: {
-    type: Sequelize.ARRAY(Sequelize.DECIMAL),
+    type: Sequelize.ARRAY,
     allowNull: false,
   },
   total: {
