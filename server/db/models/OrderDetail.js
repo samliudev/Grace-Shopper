@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const OrderDetails = db.define("orderDetails", {
+const OrderDetail = db.define("orderDetail", {
   items: {
     type: Sequelize.ARRAY,
     allowNull: false,
@@ -21,4 +21,4 @@ const OrderDetails = db.define("orderDetails", {
   },
 });
 
-module.exports = OrderDetails;
+module.exports = OrderDetail;
