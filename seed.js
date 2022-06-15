@@ -1,4 +1,4 @@
-const pokemon = [
+const pokemonArr = [
   {
     pokemon_name: 'bulbasaur',
     type: ['Grass', 'Poison'],
@@ -639,3 +639,4 @@ const pokemon = [
 //     imageUrl: 'https://pokeapi.co/api/v2/pokemon/150/',
 //   },
 // ];
+module.exports = pokemonArr;
