@@ -1,13 +1,13 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const OrderDetail = db.define("orderDetail", {
+const Order = db.define("order", {
   items: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   total: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.INTEGER,
   },
   paymentMethod: {
     type: Sequelize.INTEGER,
@@ -21,4 +21,4 @@ const OrderDetail = db.define("orderDetail", {
   },
 });
 
-module.exports = OrderDetail;
+module.exports = Order;
