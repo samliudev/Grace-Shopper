@@ -14,15 +14,15 @@ const User = db.define('user', {
   },
   firstName: {
     type: Sequelize.STRING,
-    // allowNull: false,
+    allowNull: false,
   },
   lastName: {
     type: Sequelize.STRING,
-    // allowNull: false,
+    allowNull: false,
   },
   email: {
     type: Sequelize.STRING,
-    // allowNull: false,
+    allowNull: false,
     unique: true,
     validate: {
       isEmail: true,
