@@ -15,7 +15,7 @@ const Product = db.define('product', {
     defaultValue: 'https://png.pngitem.com/pimgs/s/46-468761_pikachu-png-transparent-image-pikachu-png-png-download.png',
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2), // (PRECISION, SCALE) PRECISION IS NUMBER OF DIGITS IN A NUMBER, SCALE IS NUMBER OF DIGITS TO THE RIGHT OF THE DECIMAL
+    type: Sequelize.INTEGER, 
     allowNull: false,
     validate: {
       isDecimal: true,
