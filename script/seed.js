@@ -15,7 +15,10 @@ async function seed() {
   console.log('db synced!');
 
   // Creating Users
-  const users = await Promise.all([User.create({ username: 'cody', password: '123' }), User.create({ username: 'murphy', password: '123' })]);
+  const users = await Promise.all([
+    User.create({ username: 'Ash', firstName: 'Ketchum', lastName: 'Ketchum', email: 'Ashketchum@gmail.com', password: '123' }),
+    User.create({ username: 'Gary', firstName: 'Gary', lastName: 'Oak', email: 'Garyoak@gmail.com', password: '123' }),
+  ]);
 
   const pokemonList = await Promise.all(
     pokemonArr.map((pokemon) => {

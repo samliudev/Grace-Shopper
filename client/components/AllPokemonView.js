@@ -14,7 +14,11 @@ function AllPokemonView(){
           <p> Price: {pokemon.price} </p>
           <p> Description: {pokemon.description} </p>
           <p> Quantity: {pokemon.quantity} </p>
+
           <img src = {pokemon.imageUrl}/>
+
+          <p> Image: {pokemon.imageUrl} </p>
+
           </div>
         )
       })}
