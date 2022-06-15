@@ -15,7 +15,7 @@ const Product = db.define('product', {
     defaultValue: 'https://png.pngitem.com/pimgs/s/46-468761_pikachu-png-transparent-image-pikachu-png-png-download.png',
   },
   price: {
-    type: Sequelize.INTEGER, 
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       isDecimal: true,
