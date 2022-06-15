@@ -8,7 +8,7 @@ const Product = db.define('product', {
     allowNull: false,
   },
   type: {
-    type: Sequelize.ARRAY,
+    type: Sequelize.ARRAY(Sequelize.STRING),
   },
   imageUrl: {
     type: Sequelize.STRING,
