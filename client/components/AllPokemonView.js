@@ -5,6 +5,7 @@ const PAGE_POKEMON = 'pokemon';
 const PAGE_CART = 'cart';
 const types = ['All', 'Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon'];
 
+
 function AllPokemonView() {
   const [pokemon, setPokemon] = useState([]);
   const [cart, setCart] = useState([]);
