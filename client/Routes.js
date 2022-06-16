@@ -5,6 +5,7 @@ import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import {me} from './store'
 import AllPokemonView from './components/AllPokemonView'
+import SinglePokemonView from './components/Single Pokemon';
 
 /**
  * COMPONENT
@@ -27,7 +28,9 @@ class Routes extends Component {
         ) : (
           <Switch>
             <Route path='/' exact component={ Login } />
+              <Route path="/products/:id(\d+)" component= {SinglePokemonView} />
             <Route path="/products" component= {AllPokemonView} />
+
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
           </Switch>
