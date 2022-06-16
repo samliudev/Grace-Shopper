@@ -7,16 +7,15 @@ const Order_Products = db.define('orderProducts', {
     allowNull: false,
     validate: {
       isInt: true,
-      min: 1
+      min: 1,
     },
-  Price: {
-    type: Sequelize.INTEGER,
-    validate: {
-      isDecimal: true,
-  }
-  }
-  }
+    Price: {
+      type: Sequelize.INTEGER,
+      validate: {
+        isDecimal: true,
+      },
+    },
+  },
+});
 
-})
-
-module.exports = Order_Products
+module.exports = Order_Products;
