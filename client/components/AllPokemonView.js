@@ -45,7 +45,6 @@ const renderCart = () => (
         return(
           <div key = {pokemon.id}>
           <img src = {pokemon.imageUrl}/>
-          </Link>
           <p> Name: {pokemon.pokemon_name} </p>
           <p> Type: {pokemon.type} </p>
           <p> Price: {pokemon.price} </p>
@@ -54,7 +53,7 @@ const renderCart = () => (
           </div>
         )
       })}
-      </>
+    </>
   )
 
 
