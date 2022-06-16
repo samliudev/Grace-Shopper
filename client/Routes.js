@@ -5,7 +5,7 @@ import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import {me} from './store'
 import AllPokemonView from './components/AllPokemonView'
-import SinglePokemonView from './components/Single Pokemon';
+import SinglePokemonView from './components/SinglePokemonView';
 
 /**
  * COMPONENT
