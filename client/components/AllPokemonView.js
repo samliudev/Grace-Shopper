@@ -1,10 +1,12 @@
+
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 
 const PAGE_POKEMON = 'pokemon'
 const PAGE_CART = 'cart'
 
-function AllPokemonView(){
+
+function AllPokemonView() {
   const [pokemon, setPokemon] = useState([]);
   const [cart, setCart] = useState([]);
   const [page, setPage] = useState('pokemon')
@@ -45,14 +47,15 @@ const renderCart = () => (
         return(
           <div key = {pokemon.id}>
           <img src = {pokemon.imageUrl}/>
-          </Link>
+       
           <p> Name: {pokemon.pokemon_name} </p>
           <p> Type: {pokemon.type} </p>
           <p> Price: {pokemon.price} </p>
           <p> Description: {pokemon.description} </p>
           <p> Quantity: {pokemon.quantity} </p>
+
           </div>
-        )
+        );
       })}
       </>
   )
@@ -76,8 +79,7 @@ const renderCart = () => (
         {page == 'pokemon' && renderAllPokemon()}
         {page == 'cart' && renderCart()}
     </div>
-  )
+  );
 }
 
-
-export default AllPokemonView
+export default AllPokemonView;
