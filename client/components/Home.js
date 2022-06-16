@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 /**
  * COMPONENT
@@ -11,6 +12,7 @@ export const Home = (props) => {
     <div>
       {isLoggedIn ? (
         <h3>Welcome, {username}</h3>
+        
       ) : (
         <div>you should only see this if you are not Logged in</div>
       )}

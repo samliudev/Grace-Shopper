@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { Link } from 'react-router-dom';
 
 const PAGE_POKEMON = 'pokemon'
 const PAGE_CART = 'cart'
@@ -8,9 +9,9 @@ function AllPokemonView(){
   const [cart, setCart] = useState([]);
   const [page, setPage] = useState('pokemon')
 
-  useEffect(() => {
+useEffect(() => {
     const fetchData = async() => {
-    const response = await fetch('http://localhost:8080/api/products')
+    const response = await fetch('/api/products')
     const newData = await response.json()
     setPokemon(newData)
     }
@@ -22,7 +23,9 @@ function AllPokemonView(){
       {pokemon.map((pokemon) => {
         return(
           <div key = {pokemon.id}>
+          <Link to={`/products/${pokemon.id}`}>
           <img src = {pokemon.imageUrl}/>
+          </Link>
           <p> Name: {pokemon.pokemon_name} </p>
           <p> Type: {pokemon.type} </p>
           <p> Price: {pokemon.price} </p>
@@ -35,13 +38,14 @@ function AllPokemonView(){
       </>
   )
 
-  const renderCart = () => (
+const renderCart = () => (
     <>
     <h1>CART</h1>
       {cart.map((pokemon) => {
         return(
           <div key = {pokemon.id}>
           <img src = {pokemon.imageUrl}/>
+          </Link>
           <p> Name: {pokemon.pokemon_name} </p>
           <p> Type: {pokemon.type} </p>
           <p> Price: {pokemon.price} </p>
