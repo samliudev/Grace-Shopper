@@ -3,7 +3,7 @@ const pokemonArr = require('../seed');
 
 const {
   db,
-  models: { User, Product },
+  models: { User, Product, Order },
 } = require('../server/db');
 
 /**
@@ -20,12 +20,24 @@ async function seed() {
     User.create({ username: 'Gary', firstName: 'Gary', lastName: 'Oak', email: 'Garyoak@gmail.com', password: '123' }),
   ]);
 
+  // Creating Orders
+  const orders = await Promise.all([
+    Order.create({ items: 4, total: 50, shippingAddress: "Home"}),
+    Order.create({ items: 2, total: 20, shippingAddress: "House"}),
+    Order.create({ items: 10, total: 100, shippingAddress: "Apartment"})
+  ])
+
   const pokemonList = await Promise.all(
     pokemonArr.map((pokemon) => {
       return Product.create(pokemon);
     })
   );
+  const [Ash, Gary] = users
+  const [order1, order2, order3] = orders
+  await Ash.setOrders([order1, order3])
+  await Gary.setOrders([order2])
 
+  console.log(`seeded ${orders.length} orders`);
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${pokemonList.length} pokemonList`);
   console.log(`seeded successfully`);
