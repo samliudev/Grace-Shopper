@@ -88,10 +88,10 @@ function AllPokemonView() {
 
   return (
     <div>
-      <header>
+      <nav>
         <button onClick={() => navigateTo(PAGE_CART)}>Go To Cart({cart.length})</button>
         <button onClick={() => navigateTo(PAGE_POKEMON)}>All Pokemon</button>
-      </header>
+      </nav>
       <select onChange={(e) => setType(e.target.value)} defaultValue={type}>
         {types.map((type, idx) => (
           <option key={idx}>{type}</option>

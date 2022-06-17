@@ -10,12 +10,7 @@ export const Home = (props) => {
 
   return (
     <div>
-      {isLoggedIn ? (
-        <h3>Welcome, {username}</h3>
-        
-      ) : (
-        <div>you should only see this if you are not Logged in</div>
-      )}
+      {isLoggedIn ? <h3>Welcome, {username}</h3> : <h3>Temp Home Page</h3>}
     </div>
   );
 };
