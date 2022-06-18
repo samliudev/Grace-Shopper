@@ -36,7 +36,8 @@ const pokemonArr = [
   {
     pokemon_name: 'charmeleon',
     type: 'Fire',
-    imageUrl: 'It has a barbaric nature. In battle, it whips its fiery tail around and slashes away with sharp claws.',
+    imageUrl: 'https://i.imgur.com/kKSB3U3.jpeg',
+    description: 'It has a barbaric nature. In battle, it whips its fiery tail around and slashes away with sharp claws.',
     price: Math.floor(Math.random() * 10000),
     quantity: 10,
   },
