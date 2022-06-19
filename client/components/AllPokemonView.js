@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 
 const PAGE_POKEMON = 'pokemon';
 const PAGE_CART = 'cart';
-const types = ['All', 'Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon'];
+const types = ['All', 'Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Fairy'];
 
-//NOTE
 function AllPokemonView() {
   const [pokemon, setPokemon] = useState([]);
   const [cart, setCart] = useState([]);
@@ -25,7 +24,7 @@ function AllPokemonView() {
     <>
       {type !== 'All'
         ? pokemon
-            .filter((pokemon) => pokemon.type === type)
+            .filter((pokemon) => pokemon.type.includes(type))
             .map((pokemon) => {
               return (
                 <div key={pokemon.id}>
@@ -88,10 +87,10 @@ function AllPokemonView() {
 
   return (
     <div>
-      <header>
+      <nav>
         <button onClick={() => navigateTo(PAGE_CART)}>Go To Cart({cart.length})</button>
         <button onClick={() => navigateTo(PAGE_POKEMON)}>All Pokemon</button>
-      </header>
+      </nav>
       <select onChange={(e) => setType(e.target.value)} defaultValue={type}>
         {types.map((type, idx) => (
           <option key={idx}>{type}</option>

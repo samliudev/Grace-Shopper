@@ -21,13 +21,14 @@ class Routes extends Component {
 
     return (
       <div>
-        <Route path="/home" component={Home} />
+
         {isLoggedIn ? (
           <Switch>
             <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
+             <Route path="/home" component={Home} />
             <Route path='/' exact component={ Login } />
               <Route path="/products/:id(\d+)" component= {SinglePokemonView} />
             <Route path="/products" component= {AllPokemonView} />

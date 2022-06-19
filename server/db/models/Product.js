@@ -8,7 +8,7 @@ const Product = db.define('product', {
     allowNull: false,
   },
   type: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+    type: Sequelize.STRING,
   },
   imageUrl: {
     type: Sequelize.STRING,
@@ -17,9 +17,6 @@ const Product = db.define('product', {
   price: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    validate: {
-      isDecimal: true,
-    },
   },
   description: {
     type: Sequelize.TEXT,

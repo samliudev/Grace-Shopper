@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import * as React from "react";
 import axios from "axios";
@@ -6,6 +7,7 @@ import { Link } from "react-router-dom";
 
 const PAGE_POKEMON = 'pokemon';
 const PAGE_CART = 'cart';
+
 
 
 function SinglePokemonView() {
@@ -48,6 +50,7 @@ function SinglePokemonView() {
   };
 
   const renderSinglePokemon = () => (
+
     <div>
       <div key={pokemon.id}>
         <img src={pokemon.imageUrl} />
@@ -57,6 +60,7 @@ function SinglePokemonView() {
         <p> Description: {pokemon.description} </p>
         <p> Available: {pokemon.quantity}</p>
       </div>
+
       Quantity:
       <select
         defaultValue={quantitySelected}
@@ -71,6 +75,7 @@ function SinglePokemonView() {
       </button>
     </div>
   );
+
 
 
 
