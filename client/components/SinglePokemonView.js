@@ -1,117 +1,65 @@
+import React, { useState, useEffect } from 'react';
+import { Modal, Box, Button, makeStyles } from '@material-ui/core';
+import PokemonCard from './PokemonCard';
 
-import { useState, useEffect } from "react";
-import * as React from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
 
-const PAGE_POKEMON = 'pokemon';
-const PAGE_CART = 'cart';
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
 
-
-
-function SinglePokemonView() {
-  const [pokemon, setPokemon] = useState([]);
-  const [cart, setCart] = useState([]);
-  const [page, setPage] = useState("pokemon");
-  const { id } = useParams();
-  const quantitySelected = 1;
-  // const quantityArr = []
-  // const getQuantity = (num) => {
-  //   const quantity = num
-  //   let counter = 0
-  //   while (counter !== quantity) {
-  //     quantityArr.push(counter)
-  //   }
-  //   return quantityArr
-  // }
-
-  useEffect(() => {
-    const fetchData = async (id) => {
-      await axios
-        .get(`/api/products/${id}`)
-        .then((res) => {
-          setPokemon(res.data);
-        })
-        .catch((err) => {
-          console.err(err);
-        });
-    };
-    fetchData(id);
-
-  }, [id]);
-
-  const addToCart = (pokemon) => {
-    console.log('Pokemon Secured');
-    setCart([...cart, pokemon]);
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
   };
-  const navigateTo = (nextPage) => {
-    setPage(nextPage);
+}
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: 'absolute',
+    width: 600,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
+const SinglePokemonView = ({ pokemon }) => {
+  const classes = useStyles();
+  const [modalStyle] = useState(getModalStyle);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
-  const renderSinglePokemon = () => (
-
-    <div>
-      <div key={pokemon.id}>
-        <img src={pokemon.imageUrl} />
-        <p> Name: {pokemon.pokemon_name} </p>
-        <p> Type: {pokemon.type} </p>
-        <p> Price: {pokemon.price} </p>
-        <p> Description: {pokemon.description} </p>
-        <p> Available: {pokemon.quantity}</p>
-      </div>
-
-      Quantity:
-      <select
-        defaultValue={quantitySelected}
-        onChange={(e) => quantitySelected(e.target.value)}
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-      <button className="addToCart" onClick={() => addToCart(pokemon)}>
-        Add to Cart
-      </button>
+  const body = (
+    <div style={modalStyle} className={classes.paper} align="center">
+      <h2 id="simple-modal-title">{pokemon.pokemon_name.toUpperCase()}</h2>
+      <img height="500" src={pokemon.imageUrl} alt="" />
+      <p id="simple-modal-description">{pokemon.description}</p>
+      <p style={{ fontWeight: 600 }}>{`$${(pokemon.price / 100).toFixed(2)}`}</p>
     </div>
   );
-
-
-
-
-
-
-  const renderCart = () => (
-    <>
-      <h1>CART</h1>
-      {cart.map((pokemon) => {
-        return (
-          <div key={pokemon.id}>
-            <img src={pokemon.imageUrl} />
-            <p> Name: {pokemon.pokemon_name} </p>
-            <p> Type: {pokemon.type} </p>
-            <p> Price: {pokemon.price} </p>
-            <p> Description: {pokemon.description} </p>
-            <p> Quantity: {pokemon.quantity} </p>
-          </div>
-        );
-      })}
-    </>
-  );
-
 
   return (
-    <div>
-      <header>
-        <button onClick={() => navigateTo(PAGE_CART)}>Go To Cart({cart.length})</button>
-        <Link to={'/products'}>
-        <button onClick={() => navigateTo(PAGE_POKEMON)}>All Pokemon</button>
-        </Link>
-      </header>
-      {page == 'pokemon' && renderSinglePokemon()}
-      {page == 'cart' && renderCart()}
-    </div>
+    <>
+      <Box padding={1} bgcolor="aliceBlue">
+        <Button onClick={handleOpen}>
+          <PokemonCard pokemon={pokemon} />
+        </Button>
+        <Modal open={open} onClose={handleClose} aria-labelledby="simple-modal" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Box sx={{ position: 'absolute', border: '2px solid #000' }}>{body}</Box>
+        </Modal>
+      </Box>
+    </>
   );
-}
+};
 
 export default SinglePokemonView;
