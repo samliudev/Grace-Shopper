@@ -6,6 +6,7 @@ const SET_PRODUCTS = 'SET_PRODUCTS';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 const CREATE_PRODUCT = 'CREATE_PRODUCT';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
+const FETCH_ORDER_PRODUCTS = 'FETCH_ORDER_PRODUCTS';
 
 //ACTION CREATORS
 export const _setProducts = (products) => ({
@@ -26,6 +27,11 @@ export const _createProduct = (product) => ({
 export const _deleteProduct = (product) => ({
   type: DELETE_PRODUCT,
   product,
+});
+
+export const _fetchOrderProducts = (products) => ({
+  type: FETCH_ORDER_PRODUCTS,
+  products,
 });
 
 //THUNK CREATORS
@@ -62,6 +68,15 @@ export const deleteProduct = (id, history) => {
   };
 };
 
+export const fetchOrderProducts = (id) => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`/${id}/orders/pokemon`);
+    dispatch(_fetchOrderProducts(data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //REDUCER
 export default function productsReducer(state = [], action) {
   switch (action.type) {
@@ -73,6 +88,8 @@ export default function productsReducer(state = [], action) {
       return [...state, ...action.product];
     case DELETE_PRODUCT:
       return state.filter((product) => product.id !== action.product.id);
+      case FETCH_ORDER_PRODUCTS:
+        return action.products;
     default:
       return state;
   }
