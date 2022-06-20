@@ -4,7 +4,7 @@ import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import { me } from './store';
-import AllPokemonViewROY from './components/AllPokemonViewROY';
+import AllPokemonView from './components/AllPokemonView';
 import SinglePokemonView from './components/SinglePokemonView';
 
 /**
@@ -29,7 +29,7 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route path="/" exact component={Login} />
             <Route path="/products/:id(\d+)" component={SinglePokemonView} />
-            <Route path="/products" component={AllPokemonViewROY} />
+            <Route path="/products" component={AllPokemonView} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
           </Switch>
