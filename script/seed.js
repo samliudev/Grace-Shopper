@@ -1,10 +1,10 @@
-'use strict';
-const pokemonArr = require('../seed');
+"use strict";
+const pokemonArr = require("../seed");
 
 const {
   db,
   models: { User, Product },
-} = require('../server/db');
+} = require("../server/db");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -12,12 +12,40 @@ const {
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log('db synced!');
+  console.log("db synced!");
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'Ash', firstName: 'Ketchum', lastName: 'Ketchum', email: 'Ashketchum@gmail.com', password: '123' }),
-    User.create({ username: 'Gary', firstName: 'Gary', lastName: 'Oak', email: 'Garyoak@gmail.com', password: '123' }),
+    User.create({
+      username: "Ash",
+      firstName: "Ketchum",
+      lastName: "Ketchum",
+      email: "Ashketchum@gmail.com",
+      password: "123",
+      isAdmin: false,
+      address: "123 Apple Road, Houston, Texas",
+      phoneNumber: "123-456-7890",
+    }),
+    User.create({
+      username: "Gary",
+      firstName: "Gary",
+      lastName: "Oak",
+      email: "Garyoak@gmail.com",
+      password: "123",
+      isAdmin: false,
+      address: "123 Strawberry Lane, LosAngles, California",
+      phoneNumber: "777-888-9999",
+    }),
+    User.create({
+      username: "Admin",
+      firstName: "Admin",
+      lastName: "Admin",
+      email: "Admin@gmail.com",
+      password: "1",
+      isAdmin: true,
+      address: "123 Cherry Drive, Miami, Florida",
+      phoneNumber: "222-333-4444",
+    }),
   ]);
 
   const pokemonList = await Promise.all(
@@ -43,16 +71,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log('seeding...');
+  console.log("seeding...");
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log('closing db connection');
+    console.log("closing db connection");
     await db.close();
-    console.log('db connection closed');
+    console.log("db connection closed");
   }
 }
 
