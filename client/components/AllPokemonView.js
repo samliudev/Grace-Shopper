@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../store/products';
 import SinglePokemonView from './SinglePokemonView';
 import { Grid } from '@material-ui/core';
+
 
 const PAGE_POKEMON = 'pokemon';
 const PAGE_CART = 'cart';
@@ -15,8 +17,10 @@ export default function AllPokemonView() {
   const [cart, setCart] = useState([]);
   const [page, setPage] = useState('pokemon');
 
+
   const allPokemon = useSelector((state) => state.products);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
@@ -68,6 +72,7 @@ export default function AllPokemonView() {
             <p> Price: {pokemon.price} </p>
             <p> Description: {pokemon.description} </p>
             <p> Quantity: {pokemon.quantity} </p>
+            <button onClick={() => removeFromCart(pokemon)}>Remove Item</button>
           </div>
         );
       })}
@@ -75,9 +80,12 @@ export default function AllPokemonView() {
   );
 
   const addToCart = (pokemon) => {
-    console.log('Pokemon Secured');
-    setCart([...cart, pokemon]);
+    setCart([...cart, {...pokemon}]);
   };
+
+  const removeFromCart = (removePokemon) => {
+    setCart(cart.filter(pokemon => pokemon !== removePokemon))
+  }
 
   const navigateTo = (nextPage) => {
     setPage(nextPage);
@@ -86,7 +94,9 @@ export default function AllPokemonView() {
   return (
     <div>
       {page == 'pokemon' && renderAllPokemon()}
-      {page == 'cart' && renderCart()}
+      {page == 'cart' && <ShoppingCart cart = {cart} />}
     </div>
   );
 }
+
+
