@@ -6,6 +6,7 @@ import Home from './components/Home';
 import { me } from './store';
 import AllPokemonView from './components/AllPokemonView';
 import SinglePokemonView from './components/SinglePokemonView';
+import AdminView from './components/Admin/AdminView';
 
 /**
  * COMPONENT
@@ -16,13 +17,23 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, isAdmin } = this.props;
+    const token = window.localStorage.getItem('token');
 
     return (
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Redirect to="/home" />
+            {/* <Redirect to="/home" /> */}
+            <Route path="/home" component={Home} />
+            <Route path="/" exact component={Login} />
+            <Route path="/products/:id(\d+)" component={SinglePokemonView} />
+            <Route path="/products" component={AllPokemonView} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/adminView" exact>
+              {!isAdmin ? <Redirect to="/" /> : <AdminView />}
+            </Route>
           </Switch>
         ) : (
           <Switch>
@@ -47,6 +58,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    isAdmin: state.auth.isAdmin,
   };
 };
 
