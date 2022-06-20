@@ -6,7 +6,8 @@ import Home from './components/Home';
 import {me} from './store'
 import AllPokemonView from './components/AllPokemonView'
 import SinglePokemonView from './components/SinglePokemonView';
-import ShoppingCart from './components/ShoppingCart';
+import Orders from './components/Orders';
+import User from './components/User';
 
 /**
  * COMPONENT
@@ -31,8 +32,10 @@ class Routes extends Component {
              <Route path="/home" component={Home} />
             <Route path='/' exact component={ Login } />
               <Route path="/products/:id(\d+)" component= {SinglePokemonView} />
+              <Route path="/users/:id(\d+)/orders" component= {Orders} />
+              <Route path="/users/:id(\d+)" component= {User} />
             <Route path="/products" component= {AllPokemonView} />
-            <Route path="/orders" component= {ShoppingCart} />
+            <Route path="/orders" component= {Orders} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
           </Switch>

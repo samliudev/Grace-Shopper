@@ -22,9 +22,9 @@ async function seed() {
 
   // Creating Orders
   const orders = await Promise.all([
-    Order.create({ items: 4, total: 50, shippingAddress: "Home"}),
-    Order.create({ items: 2, total: 20, shippingAddress: "House"}),
-    Order.create({ items: 10, total: 100, shippingAddress: "Apartment"})
+    Order.create({ items: [4, 4, 1], priceAtPurchase: [511, 511, 522], total: 50099, shippingAddress: "Home"}),
+    Order.create({ items: [2], priceAtPurchase: [513], total: 20099, shippingAddress: "House"}),
+    Order.create({ items: [1, 2, 3], priceAtPurchase: [501, 502, 503], total: 100099, shippingAddress: "Apartment"})
   ])
 
   const pokemonList = await Promise.all(

@@ -4,8 +4,10 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import auth from './auth';
 import productsReducer from './products';
+import ordersReducer from './orders';
+import userReducer from './user';
 
-const reducer = combineReducers({ auth, productsReducer });
+const reducer = combineReducers({ auth, productsReducer, ordersReducer, userReducer });
 const middleware = composeWithDevTools(applyMiddleware(thunkMiddleware, createLogger({ collapsed: true })));
 const store = createStore(reducer, middleware);
 
