@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { authenticate } from '../store';
+import { Button, Box, Card, CardActions, CardContent, Typography } from '@material-ui/core';
 
-import Button from '@mui/material/Button';
 /**
  * COMPONENT
  */
@@ -25,7 +25,9 @@ const AuthForm = (props) => {
           <input name="password" type="password" />
         </div>
         <div>
-          <Button type="submit" variant="contained">{displayName}</Button>
+          <Button type="submit" variant="contained">
+            {displayName}
+          </Button>
 
           {/* <button type="submit">{displayName}</button> */}
         </div>

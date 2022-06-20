@@ -1,83 +1,65 @@
-import { useState, useEffect } from "react";
-import * as React from 'react';
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import React, { useState, useEffect } from 'react';
+import { Modal, Box, Button, makeStyles } from '@material-ui/core';
+import PokemonCard from './PokemonCard';
 
-function SinglePokemonView() {
-  const [pokemon, setPokemon] = useState([]);
-  const { id } = useParams();
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
 
-  useEffect(() => {
-    const fetchData = async (id) => {
-      await axios
-        .get(`/api/products/${id}`)
-        .then((res) => {
-          setPokemon(res.data);
-        })
-        .catch((err) => {
-          console.err(err);
-        });
-    };
-    fetchData(id);
-  }, [id]);
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
 
-
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const [quantity, setQuantity] = useState(1);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
   };
-  const handleClose= (event) => {
-    setAnchorEl(null);
-    setQuantity(event.quantity)
+}
 
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: 'absolute',
+    width: 600,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
+const SinglePokemonView = ({ pokemon }) => {
+  const classes = useStyles();
+  const [modalStyle] = useState(getModalStyle);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
-
-
-  return (
-    <div>
-      <div key={pokemon.id}>
-        <img src={pokemon.imageUrl} />
-        <p> Name: {pokemon.pokemon_name} </p>
-        <p> Type: {pokemon.type} </p>
-        <p> Price: {pokemon.price} </p>
-        <p> Description: {pokemon.description} </p>
-        <p> Quantity: {pokemon.quantity}</p>
-      </div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        Quantity: {quantity}
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        value={quantity}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleClose} quantity={1}>1</MenuItem>
-        <MenuItem onClick={handleClose} quantity={2}>2</MenuItem>
-        <MenuItem onClick={handleClose} quantity={3}>3</MenuItem>
-      </Menu>
-
-      <button className="addToCart">Add to Cart | Only {pokemon.quantity} Available</button>
+  const body = (
+    <div style={modalStyle} className={classes.paper} align="center">
+      <h2 id="simple-modal-title">{pokemon.pokemon_name.toUpperCase()}</h2>
+      <img height="500" src={pokemon.imageUrl} alt="" />
+      <p id="simple-modal-description">{pokemon.description}</p>
+      <p style={{ fontWeight: 600 }}>{`$${(pokemon.price / 100).toFixed(2)}`}</p>
     </div>
   );
-}
+
+  return (
+    <>
+      <Box padding={1} bgcolor="aliceBlue">
+        <Button onClick={handleOpen}>
+          <PokemonCard pokemon={pokemon} />
+        </Button>
+        <Modal open={open} onClose={handleClose} aria-labelledby="simple-modal" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Box sx={{ position: 'absolute', border: '2px solid #000' }}>{body}</Box>
+        </Modal>
+      </Box>
+    </>
+  );
+};
 
 export default SinglePokemonView;
