@@ -1,61 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../store/products';
+import SinglePokemonView from './SinglePokemonView';
+import { Grid } from '@material-ui/core';
 
 const PAGE_POKEMON = 'pokemon';
 const PAGE_CART = 'cart';
+
 const types = ['All', 'Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Fairy'];
 
-function AllPokemonView() {
-  const [pokemon, setPokemon] = useState([]);
-  const [cart, setCart] = useState([]);
-  const [page, setPage] = useState('pokemon');
+export default function AllPokemonView() {
   const [type, setType] = useState(types[0]);
 
+  const [cart, setCart] = useState([]);
+  const [page, setPage] = useState('pokemon');
+
+  const allPokemon = useSelector((state) => state.products);
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('/api/products');
-      const newData = await response.json();
-      setPokemon(newData);
-    };
-    fetchData();
+    dispatch(fetchProducts());
   }, []);
 
   const renderAllPokemon = () => (
-    <>
-      {type !== 'All'
-        ? pokemon
-            .filter((pokemon) => pokemon.type.includes(type))
-            .map((pokemon) => {
+    <div>
+      <nav>
+        <button onClick={() => navigateTo(PAGE_CART)}>Go To Cart({cart.length})</button>
+        <button onClick={() => navigateTo(PAGE_POKEMON)}>All Pokemon</button>
+      </nav>
+      <select onChange={(e) => setType(e.target.value)} defaultValue={type}>
+        {types.map((type, idx) => (
+          <option key={idx}>{type}</option>
+        ))}
+      </select>
+      <Grid container spacing={2} align="center">
+        {type !== 'All'
+          ? allPokemon
+              .filter((pokemon) => pokemon.type.includes(type))
+              .map((pokemon) => {
+                return (
+                  <Grid item xs={4} key={pokemon.id}>
+                    <SinglePokemonView pokemon={pokemon} />
+                    <button onClick={() => addToCart(pokemon)}>Add to Cart</button>
+                  </Grid>
+                );
+              })
+          : allPokemon.map((pokemon) => {
               return (
-                <div key={pokemon.id}>
-                  <Link to={`/products/${pokemon.id}`}>
-                    <img src={pokemon.imageUrl} />
-                  </Link>
-                  <p> Name: {pokemon.pokemon_name} </p>
-                  <p> Type: {pokemon.type} </p>
-                  <p> Price: {pokemon.price} </p>
-                  <p> Description: {pokemon.description} </p>
-                  <p> Quantity: {pokemon.quantity} </p>
+                <Grid item xs={4} key={pokemon.id}>
+                  <SinglePokemonView pokemon={pokemon} />
                   <button onClick={() => addToCart(pokemon)}>Add to Cart</button>
-                </div>
+                </Grid>
               );
-            })
-        : pokemon.map((pokemon) => {
-            return (
-              <div key={pokemon.id}>
-                <Link to={`/products/${pokemon.id}`}>
-                  <img src={pokemon.imageUrl} />
-                </Link>
-                <p> Name: {pokemon.pokemon_name} </p>
-                <p> Type: {pokemon.type} </p>
-                <p> Price: {pokemon.price} </p>
-                <p> Description: {pokemon.description} </p>
-                <p> Quantity: {pokemon.quantity} </p>
-                <button onClick={() => addToCart(pokemon)}>Add to Cart</button>
-              </div>
-            );
-          })}
-    </>
+            })}
+      </Grid>
+    </div>
   );
 
   const renderCart = () => (
@@ -87,19 +85,8 @@ function AllPokemonView() {
 
   return (
     <div>
-      <nav>
-        <button onClick={() => navigateTo(PAGE_CART)}>Go To Cart({cart.length})</button>
-        <button onClick={() => navigateTo(PAGE_POKEMON)}>All Pokemon</button>
-      </nav>
-      <select onChange={(e) => setType(e.target.value)} defaultValue={type}>
-        {types.map((type, idx) => (
-          <option key={idx}>{type}</option>
-        ))}
-      </select>
       {page == 'pokemon' && renderAllPokemon()}
       {page == 'cart' && renderCart()}
     </div>
   );
 }
-
-export default AllPokemonView;
