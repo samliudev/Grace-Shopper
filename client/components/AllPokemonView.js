@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PokemonCard from './PokemonCard';
 
 const PAGE_POKEMON = 'pokemon';
 const PAGE_CART = 'cart';
@@ -87,10 +88,6 @@ function AllPokemonView() {
 
   return (
     <div>
-      <nav>
-        <button onClick={() => navigateTo(PAGE_CART)}>Go To Cart({cart.length})</button>
-        <button onClick={() => navigateTo(PAGE_POKEMON)}>All Pokemon</button>
-      </nav>
       <select onChange={(e) => setType(e.target.value)} defaultValue={type}>
         {types.map((type, idx) => (
           <option key={idx}>{type}</option>
