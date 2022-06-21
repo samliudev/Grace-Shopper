@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 
 function User() {
   const [user, setUser] = useState([]);
@@ -22,12 +24,41 @@ function User() {
   }, [id]);
 
 
+  console.log("params", id);
+
   return (
-    <div>
+    <>
+    
+      <div key={user.id}>
+        <p> Username: {user.username}</p>
+        <p> First Name: {user.firstName} </p>
+        <p> Last Name: {user.lastName} </p>
+        <p> Email: {user.email} </p>
+        <p> Address: {user.address} </p>
+        <p> Phone: {user.phone} </p>
+        <p>
+      
+          Admin:
+          {user.isAdmin ? (
+            <Link to="/users/all"> Manage Users</Link>
+          ) : (
+            /* <Link to="/products/edit/1">Manage Products</Link> */
+            <> No </>
+          )}
+          <p></p>
+          <Link to={`/users/edit/${id}`}>Edit Profile</Link>
+        </p>
+        
+         <div>
       <p>Username: {user.username}</p>
     <Link to={`${id}/orders`}>Order History</Link>
 
     </div>
+        
+      </div>
+    </>
   );
 }
+
 export default User;
+
