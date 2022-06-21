@@ -15,7 +15,6 @@ import Orders from './components/Orders';
 import ShoppingCart from './components/ShoppingCart';
 
 
-
 /**
  * COMPONENT
  */
@@ -43,17 +42,16 @@ class Routes extends Component {
             <Route path="/users/profile/:id" component={User} />
             <Route path="/users/edit/:id" component={EditProfile} />
             <Route path="/users/all" component={AllUsers} />
-            <Route path="/adminView" exact>
-              {!isAdmin ? <Redirect to="/" /> : <AdminView />}
+             <Route path="/users/:id(\d+)/orders" component= {Orders} />
+             <Route path="/admin" exact>
+              {!isAdmin ? <Redirect to="/" /> : <AdminView isAdmin={isAdmin} />}
               </Route>
           </Switch>
         ) : (
           <Switch>
-            
-             <Route path="/home" component={Home} />
+            <Route path="/home" component={Home} />
             <Route path='/' exact component={ Login } />
               <Route path="/products/:id(\d+)" component= {SinglePokemonView} />
-              <Route path="/users/:id(\d+)/orders" component= {Orders} />
               <Route path="/users/:id(\d+)" component= {User} />
             <Route path="/products" component= {AllPokemonView} />
             <Route path="/orders" component= {Orders} />
