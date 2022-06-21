@@ -1,81 +1,98 @@
 /**
  * ACTION TYPES
  */
+const SET_CART = "SET_CART"
 const ADD_TO_CART = "ADD_TO_CART";
 const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 const ADJUST_QUANTITY = "ADJUST_QUANTITY";
-const LOAD_CURRENT_ITEM = "LOAD_CURRENT_ITEM"
-
+const LOAD_CURRENT_ITEM = "LOAD_CURRENT_ITEM";
 
 /**
  * ACTION CREATORS
  */
-export const addtoCart = (addPokemonID) => ({
-  type: ADD_TO_CART,
-  id: addPokemonID
-})
-export const removeFromCart = (removePokemonID) => ({
-  type: REMOVE_FROM_CART,
-  id: removePokemonID
-})
-export const adjustQuantity = (pokemonID,value) => ({
-  type: ADJUST_QUANTITY,
-  id: pokemonID,
-  quantity: value
-})
-export const loadCurrentItem = (item) => ({
-  type: LOAD_CURRENT_ITEM,
-  item
+
+export const setCart = (pokemonArrayCart) =>({
+  type: SET_CART,
+  payload: pokemonArrayCart
+
 })
 
+export const addToCart = (addPokemonID) => ({
+  type: ADD_TO_CART,
+  payload:{
+    pokemon: addPokemonID
+  }
+
+});
+export const removeFromCart = (removePokemonID) => ({
+  type: REMOVE_FROM_CART,
+  id: removePokemonID,
+});
+export const adjustQuantity = (pokemonID, value) => ({
+  type: ADJUST_QUANTITY,
+  id: pokemonID,
+  quantity: value,
+});
+export const loadCurrentItem = (item) => ({
+  type: LOAD_CURRENT_ITEM,
+  item,
+});
 
 /**
  * THUNK CREATORS
  */
 const INITIAL_STATE = {
-  product:[],
   cart: [],
-  currentItem: null
-}
-
+  currentItem: null,
+};
 
 /**
  * REDUCER
  */
+
 const cartReducer = (state = INITIAL_STATE, action) => {
-  switch(action.type){
+  switch (action.type) {
     case ADD_TO_CART:
-      const item = state.product.find(pokemon => pokemon.id === id);
-      const inCart = state.cart.find((item) => item.id === id ? true:false);
+      const pokemonAdded = action.payload.pokemon;
+      const inCart = state.cart.find((pokemonInCart) =>
+      pokemonInCart.id === pokemonAdded.id ? true : false
+      );
+
       return {
-      ...state,
-      cart: inCart
-      ? state.cart.map((item) =>
-        item.id === id
-          ? {...item, quantity: item.quantity + 1}: item): [...state.cart, {...item, quantity:1 }]
-      }
+        ...state,
+        cart: inCart
+          ? state.cart.map((pokemonBasket) =>
+                pokemonBasket.id === pokemonAdded.id
+                ? { ...pokemonBasket, currentQuantity: pokemonBasket.currentQuantity + 1 }
+                : pokemonBasket
+            )
+          : [...state.cart, { ...pokemonAdded, currentQuantity: 1 }],
+      };
     case REMOVE_FROM_CART:
       return {
         ...state,
-        cart: state.filter(item => item.id !== id)
-      }
+        cart: state.cart.filter((pokemonRemoving) => pokemonRemoving.id !== action.id),
+      };
     case ADJUST_QUANTITY:
       return {
         ...state,
-        cart: state.cart.map(item => item.id === id ? {...item, quantity: quantity}: item)
-      }
+        cart: state.cart.map((item) =>
+          item.id === action.id ? { ...item, currentQuantity: action.quantity } : item
+        ),
+      };
     case LOAD_CURRENT_ITEM:
       return {
         ...state,
-        currentItem: item
+        currentItem: pokemonAdded,
+      };
+    case SET_CART:
+      return{
+        ...state,
+        cart: action.payload
       }
     default:
-    return state
+      return state;
   }
-}
+};
 
-export default cartReducer
-
-
-
-
+export default cartReducer;
