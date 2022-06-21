@@ -12,7 +12,7 @@ import EditProfile from "./components/EditProfile";
 import AllUsers from "./components/AllUsers";
 import AdminView from './components/Admin/AdminView';
 import Orders from './components/Orders';
-
+import ShoppingCart from './components/ShoppingCart';
 
 
 
@@ -49,7 +49,7 @@ class Routes extends Component {
           </Switch>
         ) : (
           <Switch>
-
+            
              <Route path="/home" component={Home} />
             <Route path='/' exact component={ Login } />
               <Route path="/products/:id(\d+)" component= {SinglePokemonView} />
@@ -57,6 +57,7 @@ class Routes extends Component {
               <Route path="/users/:id(\d+)" component= {User} />
             <Route path="/products" component= {AllPokemonView} />
             <Route path="/orders" component= {Orders} />
+            <Route path="/checkout" component= {ShoppingCart} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
           </Switch>
