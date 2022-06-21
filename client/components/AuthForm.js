@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { authenticate } from '../store';
 import { Button, Box, Card, CardActions, CardContent, Typography } from '@material-ui/core';
-import TestCard from './TestCard';
 
 /**
  * COMPONENT
@@ -12,7 +11,6 @@ const AuthForm = (props) => {
 
   return (
     <div>
-      <TestCard />
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="username">

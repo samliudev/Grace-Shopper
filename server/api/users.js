@@ -1,6 +1,10 @@
 const router = require("express").Router();
-const User = require("../db/models/User");
+const {
+  models: { User, Product },
+} = require("../db");
+const { Op } = require("sequelize");
 module.exports = router;
+
 // GET /api/users
 router.get("/", async (req, res, next) => {
   try {
@@ -57,5 +61,38 @@ router.delete('/:id', async (req, res, next) => {
 });
 
 
+// Get array of orders that belong to this user
+router.get("/:id/orders", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    const usersOrders = await user.getOrders();
+    res.json(usersOrders);
+  } catch (error) {
+    next(error);
+  }
+});
 
-module.exports = router;
+// Get array of orders that belong to this user
+router.get("/:id/orders/pokemon", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    const usersOrders = await user.getOrders();
+
+    let orderProducts = await usersOrders.map((a) => a.items);
+
+    // turns orderProducts from an array of arrays to a flat array
+    orderProducts = [].concat.apply([], orderProducts);
+    const products = await Product.findAll({
+      where: {
+        id: {
+          [Op.in]: [...orderProducts],
+        },
+      },
+    });
+
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
+});
+

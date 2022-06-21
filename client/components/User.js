@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import * as React from "react";
+
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 
-function UserProfile() {
+function User() {
   const [user, setUser] = useState([]);
   const { id } = useParams();
 
@@ -23,10 +23,12 @@ function UserProfile() {
     fetchData(id);
   }, [id]);
 
+
   console.log("params", id);
 
   return (
     <>
+    
       <div key={user.id}>
         <p> Username: {user.username}</p>
         <p> First Name: {user.firstName} </p>
@@ -46,9 +48,17 @@ function UserProfile() {
           <p></p>
           <Link to={`/users/edit/${id}`}>Edit Profile</Link>
         </p>
+        
+         <div>
+      <p>Username: {user.username}</p>
+    <Link to={`${id}/orders`}>Order History</Link>
+
+    </div>
+        
       </div>
     </>
   );
 }
 
-export default UserProfile;
+export default User;
+
