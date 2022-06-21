@@ -10,7 +10,6 @@ import AdminView from './components/Admin/AdminView';
 import Orders from './components/Orders';
 import User from './components/User';
 
-
 /**
  * COMPONENT
  */
@@ -34,20 +33,19 @@ class Routes extends Component {
             <Route path="/products" component={AllPokemonView} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/adminView" exact>
-              {!isAdmin ? <Redirect to="/" /> : <AdminView />}
+            <Route path="/admin" exact>
+              {!isAdmin ? <Redirect to="/" /> : <AdminView isAdmin={isAdmin} />}
             </Route>
           </Switch>
         ) : (
           <Switch>
-
-             <Route path="/home" component={Home} />
-            <Route path='/' exact component={ Login } />
-              <Route path="/products/:id(\d+)" component= {SinglePokemonView} />
-              <Route path="/users/:id(\d+)/orders" component= {Orders} />
-              <Route path="/users/:id(\d+)" component= {User} />
-            <Route path="/products" component= {AllPokemonView} />
-            <Route path="/orders" component= {Orders} />
+            <Route path="/home" component={Home} />
+            <Route path="/" exact component={Login} />
+            <Route path="/products/:id(\d+)" component={SinglePokemonView} />
+            <Route path="/users/:id(\d+)/orders" component={Orders} />
+            <Route path="/users/:id(\d+)" component={User} />
+            <Route path="/products" component={AllPokemonView} />
+            <Route path="/orders" component={Orders} />
 
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />

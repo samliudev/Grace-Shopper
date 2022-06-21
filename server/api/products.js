@@ -27,11 +27,17 @@ router.get('/:id', async (req, res, next) => {
 // ADD PRODUCT
 router.post('/', async (req, res, next) => {
   try {
-    console.log(req.headers);
-    const newProduct = await Product.create(req.body);
-    res.send(newProduct);
+    const user = await User.findByToken(req.body.token);
+    if (user && user.isAdmin === true) {
+      const newProduct = await Product.create(req.body.product);
+      res.send(newProduct);
+    } else {
+      const error = Error('Error, you do not have privileges required for this action');
+      error.status = 401;
+      throw error;
+    }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 

@@ -27,7 +27,7 @@ export default function AddProduct() {
 
   return (
     <div>
-      <h2>AddProduct</h2>
+      <h2>Add New Product</h2>
       <form
         id="addProductForm"
         onSubmit={(event) => {

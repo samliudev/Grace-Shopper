@@ -16,7 +16,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
             Logout
           </a>
           <Link to="/account">Account</Link>
-          {isAdmin ? <Link to="/adminView"> Admin View</Link> : null}
+          {isAdmin ? <Link to="/admin"> Admin View</Link> : null}
         </div>
       ) : (
         <div>
