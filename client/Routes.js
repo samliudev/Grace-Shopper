@@ -43,6 +43,7 @@ class Routes extends Component {
             <Route path="/users/edit/:id" component={EditProfile} />
             <Route path="/users/all" component={AllUsers} />
              <Route path="/users/:id(\d+)/orders" component= {Orders} />
+             <Route path="/checkout" component= {ShoppingCart} />
              <Route path="/admin" exact>
               {!isAdmin ? <Redirect to="/" /> : <AdminView isAdmin={isAdmin} />}
               </Route>
