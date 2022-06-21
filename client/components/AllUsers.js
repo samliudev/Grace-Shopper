@@ -18,7 +18,6 @@ function AllUsers() {
   return (
     <>
       {users.map((users) => {
-        console.log("users", users)
         return (
           <div key={users.id}>
       <p> Usersname: {users.username}</p>
@@ -27,7 +26,6 @@ function AllUsers() {
       <p> Email: {users.email} </p>
       <p> Address: {users.address} </p>
       <p> Phone: {users.phone} </p>
-            <button onClick={() => editUser(users)}>Edit User</button>
           </div>
         );
       })}
