@@ -7,9 +7,12 @@ import productsReducer from './products';
 import cartReducer from './cart'
 import ordersReducer from './orders';
 import userReducer from './user';
+import usersReducer from './users';
+
 
 
 const reducer = combineReducers({ auth, products: productsReducer, orders: ordersReducer, users: userReducer, cartReducer });
+
 
 
 const middleware = composeWithDevTools(applyMiddleware(thunkMiddleware, createLogger({ collapsed: true })));

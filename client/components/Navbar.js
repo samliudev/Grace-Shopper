@@ -1,25 +1,32 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { logout } from "../store";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../store';
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <div>
     <h1>POKEMART</h1>
     <nav className="nav">
-      <Link to="/home">Home</Link>
-      <Link to="/products">Products</Link>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
+          <Link to="/home">Home</Link>
+          <Link to="/products">Products</Link>
+          <Link to="/users/profile/:id">Account</Link>
+          {/* route still needs to be conneced to users id */}
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+
           <Link to="/account">Account</Link>
+          {isAdmin ? <Link to="/adminView"> Admin View</Link> : null}
+
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
+          <Link to="/home">Home</Link>
+          <Link to="/products">Products</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
         </div>
@@ -35,6 +42,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    isAdmin: state.auth.isAdmin,
   };
 };
 
