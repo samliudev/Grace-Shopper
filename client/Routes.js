@@ -45,7 +45,7 @@ class Routes extends Component {
             <Route path="/users/all" component={AllUsers} />
             <Route path="/adminView" exact>
               {!isAdmin ? <Redirect to="/" /> : <AdminView />}
-            </Route>
+              </Route>
           </Switch>
         ) : (
           <Switch>

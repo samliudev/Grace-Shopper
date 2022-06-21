@@ -70,12 +70,13 @@ export const updateUser = (user, history) => {
   return async (dispatch) => {
     const { data: updated } = await axios.put(`/api/users/${user.id}`, user);
     dispatch(_updateUser(updated));
+    history.push(`/users/${user.id}`)
   };
 };
 
 //REDUCER
 
-export default function userReducer(state = [], action) {
+export default function usersReducer(state = [], action) {
     switch (action.type) {
         case FETCH_USER:
             return action.user;
