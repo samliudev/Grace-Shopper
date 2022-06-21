@@ -17,7 +17,6 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-          <Link to="/account">Account</Link>
           {isAdmin ? <Link to="/admin"> Admin View</Link> : null}
         </div>
       ) : (
@@ -53,4 +52,3 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(Navbar);
-
