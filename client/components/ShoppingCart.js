@@ -52,7 +52,7 @@ const ShoppingCart = () => {
             <img src={pokemon.imageUrl} />
             <p> Name: {pokemon.pokemon_name} </p>
             <p> Type: {pokemon.type} </p>
-            <p> Price: {pokemon.price} </p>
+            <p> Price: ${pokemon.price/100} </p>
             <p> Description: {pokemon.description} </p>
             <p> Quantity: {pokemon.currentQuantity} </p>
             <button onClick={() => removePokemonFromCart(pokemon)}>Remove Item</button>
@@ -61,8 +61,8 @@ const ShoppingCart = () => {
           </div>
         );
       })}
-      <h2>SubTotal</h2>
-      {subtotal}
+      <h1>SubTotal</h1>
+      <h3>${(subtotal/100)}</h3>
     </>
   )
 }
