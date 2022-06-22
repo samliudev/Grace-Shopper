@@ -46,6 +46,8 @@ class Routes extends Component {
               <Route exact path="/admin/products/add" component={AddProduct} />
               <Route exact path="/admin/products" component={AllProductsAdmin} />
               <Route exact path="/admin/products/edit/:id" component={EditProduct} />
+                 <Route path="/checkout" component= {ShoppingCart} />
+
               {!isAdmin ? <Redirect to="/" /> : <AdminView isAdmin={isAdmin} />}
             </Route>
           </Switch>
