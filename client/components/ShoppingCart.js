@@ -30,9 +30,9 @@ const ShoppingCart = () => {
       dispatch(adjustQuantity(pokemon.id, newQuantity))}
       }
 
-  const removePokemonFromCart = async(pokemon) => {
-    await dispatch(removeFromCart(pokemon.id))
-    await localStorage.setItem('cart', JSON.stringify(cart))
+  const removePokemonFromCart = (pokemon) => {
+     dispatch(removeFromCart(pokemon.id))
+     localStorage.setItem('cart', JSON.stringify(cart))
   }
 
 
