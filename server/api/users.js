@@ -7,9 +7,10 @@ module.exports = router;
 
 
 // GET /api/users
-router.get("/", async (req, res, next) => {
+router.get("/",  async (req, res, next) => {
   try {
-    // const user = await User.findByToken(req.body.token);
+    // const user = await User.findByToken(req.headers.authorization);
+    // console.log("User is", user)
     // if (user && user.isAdmin === true) {
     const users = await User.findAll({
 
@@ -17,8 +18,12 @@ router.get("/", async (req, res, next) => {
       //Temp commented out to retrieve all users in allUserView intil Admin is setup
 
     });
-    console.log("User", req);
+    console.log(req.user)
     res.json(users);
+  // } else {
+  //   const error = Error('Error, you do not have privileges required for this action');
+  //   error.status = 401;
+  //   throw error;
   // }
   } catch (error) {
     next(error);
@@ -67,7 +72,7 @@ router.get("/:id/orders/description", async (req, res, next) => {
     next(error);
   }
 });
-// GET all the ordered pokemon for this user
+// GET all the order descriptions for this useryy
 router.get("/:id/orders/pokemon", async (req, res, next) => {
   try {
     let Obj = {}
