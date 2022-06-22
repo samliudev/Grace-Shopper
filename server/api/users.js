@@ -13,10 +13,8 @@ router.get("/",  async (req, res, next) => {
     // console.log("User is", user)
     // if (user && user.isAdmin === true) {
     const users = await User.findAll({
-
       // attributes: ["id", "username"],
       //Temp commented out to retrieve all users in allUserView intil Admin is setup
-
     });
     console.log(req.user)
     res.json(users);
@@ -30,7 +28,8 @@ router.get("/",  async (req, res, next) => {
   }
 });
 
-// GET /api/user/:id
+// GET /api/users/:id
+
 router.get("/:id", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
@@ -39,6 +38,7 @@ router.get("/:id", async (req, res, next) => {
     next(error);
   }
 });
+
 
 // GET array of orders that belong to this user
 router.get("/:id/orders", async (req, res, next) => {
@@ -103,33 +103,26 @@ router.get("/:id/orders/pokemon", async (req, res, next) => {
 });
 
 
+
 // PUT /api/users/:id
 router.put("/:id", async (req, res, next) => {
   try {
-    const { data: user } = await User.update(
-      { firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password,
-        address: req.body.address },
-
-        { where: { id: req.params.id }, }
-    );
-    res.json(user);
+    const user = await User.findByPk(req.params.id);
+    res.send(user.update(req.body));
   } catch (error) {
     next(error);
   }
 });
 
 // DELETE /api/users/:id
-router.delete('/:id', async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
-    await user.destroy()
+    await user.destroy();
     res.json(user);
   } catch (error) {
+    console.log("this is the error");
     next(error);
   }
 });
-
 
