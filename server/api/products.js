@@ -41,21 +41,31 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-// UPDATE PRODUCT
-router.put('/:id', async (req, res, next) => {
+// // UPDATE PRODUCT
+// router.put('/:id', async (req, res, next) => {
+//   try {
+//     const user = await User.findByToken(req.body.token);
+//     const product = await Product.findOne({
+//       where: { id: req.params.id },
+//     });
+//     if (user && user.isAdmin === true) {
+//       product.update(req.body);
+//       res.send(product);
+//     } else {
+//       const error = Error('Error, you do not have privileges required for this action');
+//       error.status = 401;
+//       throw error;
+//     }
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// PUT /api/users/:id
+router.put("/:id", async (req, res, next) => {
   try {
-    const user = await User.findByToken(req.body.token);
-    const product = await Product.findOne({
-      where: { id: req.params.id },
-    });
-    if (user && user.isAdmin === true) {
-      product.update(req.body);
-      res.send(product);
-    } else {
-      const error = Error('Error, you do not have privileges required for this action');
-      error.status = 401;
-      throw error;
-    }
+    const product = await Product.findByPk(req.params.id);
+    res.send(product.update(req.body));
   } catch (error) {
     next(error);
   }

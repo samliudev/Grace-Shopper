@@ -50,13 +50,32 @@ export const fetchProducts = () => async (dispatch) => {
   }
 };
 
-export const updateProduct = (product, history) => {
+// export const updateProduct = (product, history) => {
+//   return async (dispatch) => {
+//     const token = window.localStorage.getItem('token');
+//     const { data: updated } = await axios.put(`/api/products/${product.id}`, {
+//       product,
+//       token,
+//     });
+//     dispatch(_updateProduct(updated));
+//     history.push('/products');
+//   };
+// };
+
+export const updateProduct = (id, product, history) => {
+  console.log(product);
+
   return async (dispatch) => {
-    const token = window.localStorage.getItem('token');
-    const { data: updated } = await axios.put(`/api/products/${product.id}`, {
-      product,
-      token,
-    });
+    const { data: updated } = await axios.put(
+      `/api/products/${id}`,
+      JSON.stringify(product),
+      {
+        headers: {
+          // Overwrite Axios's automatically set Content-Type
+          "Content-Type": "application/json",
+        },
+      }
+    );
     dispatch(_updateProduct(updated));
     history.push('/products');
   };

@@ -17,9 +17,9 @@ export default function AllPokemonView() {
   const cart = useSelector((state) => state.cartReducer.cart);
   const dispatch = useDispatch();
 
-  const addPokemonToCart = async(pokemon) => {
-    await dispatch(addToCart(pokemon))
-    await localStorage.setItem('cart', JSON.stringify(cart))
+  const addPokemonToCart =(pokemon) => {
+   dispatch(addToCart(pokemon))
+   localStorage.setItem('cart', JSON.stringify(cart))
   }
 
   useEffect(() => {

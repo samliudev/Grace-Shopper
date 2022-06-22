@@ -5,15 +5,6 @@ import { fetchUser } from "../store/user";
 import { updateUser } from "../store/user";
 import { useParams } from 'react-router-dom';
 
-const emptyUser = {
-  username: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-  address: "",
-  phoneNumber: "",
-};
-
 const EditProfile = () => {
   const dispatch = useDispatch();
   let userStore = useSelector((state) => state.users);

@@ -45,8 +45,8 @@ const SinglePokemonView = ({ pokemon }) => {
     setOpen(false);
   };
 
-  const addPokemonToCart = async(pokemon) => {
-    await dispatch(addToCart(pokemon))
+  const addPokemonToCart = (pokemon) => {
+   dispatch(addToCart(pokemon))
     localStorage.setItem('cart', JSON.stringify(cart))
   }
 
