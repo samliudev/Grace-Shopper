@@ -4,7 +4,8 @@ import { fetchProducts } from '../store/products';
 import SinglePokemonView from './SinglePokemonView';
 import { Grid } from '@material-ui/core';
 import { addToCart } from '../store/cart';
-import ShoppingCart from './ShoppingCart';
+
+
 
 
 const types = ['All', 'Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Fairy'];
@@ -61,7 +62,6 @@ export default function AllPokemonView() {
   return (
     <div>
       {renderAllPokemon()}
-
     </div>
   );
 }

@@ -1,11 +1,14 @@
-import axios from 'axios';
+
+import axios from "axios";
+import history from "history";
+
 
 //ACTION TYPES
 
-const FETCH_USERS = 'FETCH_USERS';
+const FETCH_USERS = "FETCH_USERS";
 const FETCH_USER = "FETCH_USER";
-const CREATE_USER = 'CREATE_USER';
-const UPDATE_USER = 'UPDATE_USER';
+const CREATE_USER = "CREATE_USER";
+const UPDATE_USER = "UPDATE_USER";
 
 //ACTION CREATORS
 
@@ -15,29 +18,27 @@ export const _fetchUser = (user) => ({
 });
 
 const _fetchUsers = (users) => {
-    return {
-        type: FETCH_USERS,
-        users
-    };
+  return {
+    type: FETCH_USERS,
+    users,
+  };
 };
 
 const _createUser = (user) => {
-    return {
-        type: CREATE_USER,
-        user
-    };
+  return {
+    type: CREATE_USER,
+    user,
+  };
 };
 
 const _updateUser = (user) => {
   return {
     type: UPDATE_USER,
     user,
-  }
-}
-
+  };
+};
 
 //THUNK CREATORS
-
 
 export const fetchUser = (id) => async (dispatch) => {
   try {
@@ -48,20 +49,34 @@ export const fetchUser = (id) => async (dispatch) => {
   }
 };
 
-
 export const fetchUsers = () => {
-    return async (dispatch) => {
-        const { data: users } = await axios.get('/api/users');
-        dispatch(_fetchUsers(users));
-    };
+  return async (dispatch) => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      const { data: users } = await axios.get("/api/users", {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(_fetchUsers(users));
+    }
+  };
 };
 
-export const createUser = (user) => {
-    return async (dispatch) => {
-        const { data: created } = await axios.post('/api/users', user);
-        dispatch(_createUser(created));
 
-    };
+export const createUser = (user, history) => {
+  return async (dispatch) => {
+    const { data: created } = await axios.post("/api/users", user);
+    dispatch(_createUser(created));
+  };
+};
+
+export const updateUser = (user, history) => {
+  return async (dispatch) => {
+    const { data: updated } = await axios.put(`/api/users/${user.id}`, user);
+    dispatch(_updateUser(updated));
+    history.push(`/users/${user.id}`);
+  };
 };
 
 

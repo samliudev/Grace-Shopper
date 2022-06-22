@@ -27,6 +27,7 @@ function User() {
   return (
     <>
     <Card>
+
       <div key={user.id}>
         <p> Username: {user.username}</p>
         <p> First Name: {user.firstName} </p>
@@ -35,7 +36,7 @@ function User() {
         <p> Address: {user.address} </p>
         <p> phoneNumber: {user.phoneNumber} </p>
         <p>
-          {" "}
+
           Admin:
           {user.isAdmin ? (
             // <Link to="/users/all"> Manage Users</Link>
@@ -45,13 +46,13 @@ function User() {
             <> No </>
           )}
         </p>
+
         <div>
           <Link to={`/users/edit/${id}`}>Edit Profile</Link>
         </div>
         <div>
           <Link to={`${id}/orders`}>Order History</Link>
         </div>
-        <div></div>
       </div>
       </Card>
     </>
