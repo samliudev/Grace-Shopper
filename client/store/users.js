@@ -1,5 +1,4 @@
 import axios from 'axios';
-import history from 'history';
 
 //ACTION TYPES
 
@@ -45,7 +44,7 @@ export const fetchUser = (id) => async (dispatch) => {
     const { data } = await axios.get(`/api/users/${id}`);
     dispatch(_fetchUser(data));
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
@@ -57,7 +56,7 @@ export const fetchUsers = () => {
     };
 };
 
-export const createUser = (user, history) => {
+export const createUser = (user) => {
     return async (dispatch) => {
         const { data: created } = await axios.post('/api/users', user);
         dispatch(_createUser(created));
@@ -65,14 +64,6 @@ export const createUser = (user, history) => {
     };
 };
 
-
-export const updateUser = (user, history) => {
-  return async (dispatch) => {
-    const { data: updated } = await axios.put(`/api/users/${user.id}`, user);
-    dispatch(_updateUser(updated));
-    history.push(`/users/${user.id}`)
-  };
-};
 
 //REDUCER
 
@@ -84,8 +75,6 @@ export default function usersReducer(state = [], action) {
             return action.users;
         case CREATE_USER:
             return [...state, action.user];
-        case UPDATE_USER:
-            return [...state, action.user ];
         default:
             return state
     };

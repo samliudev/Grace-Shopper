@@ -1,9 +1,8 @@
-
 import React, { useState, useEffect } from "react";
+import { Card, Button} from "@material-ui/core";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
-
 
 function User() {
   const [user, setUser] = useState([]);
@@ -23,42 +22,40 @@ function User() {
     fetchData(id);
   }, [id]);
 
-
   console.log("params", id);
 
   return (
     <>
-    
+    <Card>
       <div key={user.id}>
         <p> Username: {user.username}</p>
         <p> First Name: {user.firstName} </p>
         <p> Last Name: {user.lastName} </p>
         <p> Email: {user.email} </p>
         <p> Address: {user.address} </p>
-        <p> Phone: {user.phone} </p>
+        <p> phoneNumber: {user.phoneNumber} </p>
         <p>
-      
+          {" "}
           Admin:
           {user.isAdmin ? (
-            <Link to="/users/all"> Manage Users</Link>
+            // <Link to="/users/all"> Manage Users</Link>
+            <>Yes</>
           ) : (
             /* <Link to="/products/edit/1">Manage Products</Link> */
             <> No </>
           )}
-          <p></p>
-          <Link to={`/users/edit/${id}`}>Edit Profile</Link>
         </p>
-        
-         <div>
-      <p>Username: {user.username}</p>
-    <Link to={`${id}/orders`}>Order History</Link>
-
-    </div>
-        
+        <div>
+          <Link to={`/users/edit/${id}`}>Edit Profile</Link>
+        </div>
+        <div>
+          <Link to={`${id}/orders`}>Order History</Link>
+        </div>
+        <div></div>
       </div>
+      </Card>
     </>
   );
 }
 
 export default User;
-
