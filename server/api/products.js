@@ -74,16 +74,16 @@ router.put("/:id", async (req, res, next) => {
 // DELETE PRODUCT
 router.delete('/:id', async (req, res, next) => {
   try {
-    const user = await User.findByToken(req.headers.authorization);
-    if (user && user.isAdmin === true) {
+    // const user = await User.findByToken(req.headers.authorization);
+    // if (user && user.isAdmin === true) {
       const product = await Product.findByPk(req.params.id);
       await product.destroy();
       res.sendStatus(204);
-    } else {
-      const error = Error('Error, you do not have privileges required for this action');
-      error.status = 401;
-      throw error;
-    }
+    // } else {
+    //   const error = Error('Error, you do not have privileges required for this action');
+    //   error.status = 401;
+    //   throw error;
+    // }
   } catch (error) {
     next(error);
   }
