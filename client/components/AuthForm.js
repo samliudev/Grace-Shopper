@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { authenticate } from '../store';
 import { Button, Box, Card, CardActions, CardContent, Typography } from '@material-ui/core';
 
+
 /**
  * COMPONENT
  */
@@ -60,6 +61,8 @@ const mapSignup = (state) => {
   };
 };
 
+
+
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
@@ -67,7 +70,9 @@ const mapDispatch = (dispatch) => {
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
+
       dispatch(authenticate(username, password, formName));
+      window.location.assign('/home')
     },
   };
 };

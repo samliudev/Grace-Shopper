@@ -39,6 +39,7 @@ export const updateUser = (id, user) => {
       }
     );
     dispatch(_updateUser(updated));
+
   };
 };
 

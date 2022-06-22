@@ -16,6 +16,7 @@ import ShoppingCart from "./components/ShoppingCart";
 import AddProduct from "./components/Admin/AddProduct";
 import AllProductsAdmin from "./components/Admin/AllProductsAdmin";
 import EditProduct from "./components/Admin/EditProduct";
+import ManageUsers from "./components/Admin/ManageUsers";
 
 /**
  * COMPONENT
@@ -42,11 +43,13 @@ class Routes extends Component {
             <Route path="/products" component={AllPokemonView} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/admin/manageusers" component={ManageUsers} />
             <Route path="/users/profile/:id/orders" component={Orders} />
             <Route path="/users/profile/:id" component={User} />
             <Route path="/users/edit/:id" component={EditProfile} />
             <Route path="/users/all" component={AllUsers} />
             <Route path="/users/:id(\d+)/orders" component={Orders} />
+            <Route path="/checkout" component={ShoppingCart} />
             <Route exact path="/admin/products/add" component={AddProduct} />
             <Route
               exact
@@ -59,7 +62,7 @@ class Routes extends Component {
                 path="/admin/products"
                 component={AllProductsAdmin}
               />
-                <Route path="/checkout" component={ShoppingCart} />
+
 
               {!isAdmin ? <Redirect to="/" /> : <AdminView isAdmin={isAdmin} />}
             </Route>

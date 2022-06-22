@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import AllUsers from "../AllUsers";
 import { fetchUsers } from "../../store/users";
-
+import { Link } from "react-router-dom";
 export default function ManageUsers() {
   const [users, setUsers] = useState([]);
 
@@ -30,6 +30,7 @@ export default function ManageUsers() {
             <p> Email: {users.email} </p>
             <p> Address: {users.address} </p>
             <p> Phone: {users.phoneNumber} </p>
+            <Link to={`/users/edit/${users.id}`}>Edit Profile</Link>
           </div>
         );
       })}

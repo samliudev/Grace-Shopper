@@ -62,7 +62,7 @@ export const fetchProducts = () => async (dispatch) => {
 //   };
 // };
 
-export const updateProduct = (id, product, history) => {
+export const updateProduct = (id, product) => {
   console.log(product);
 
   return async (dispatch) => {
@@ -77,7 +77,7 @@ export const updateProduct = (id, product, history) => {
       }
     );
     dispatch(_updateProduct(updated));
-    history.push('/products');
+
   };
 };
 
@@ -90,12 +90,13 @@ export const createProduct = (product, history) => {
   };
 };
 
-export const deleteProduct = (id, history) => {
+export const deleteProduct = (id) => {
   return async (dispatch) => {
     const token = window.localStorage.getItem('token');
-    const { data: product } = await axios.delete(`/api/product/${id}`);
+    const { data: product } = await axios.delete(`/api/products/${id}`);
     dispatch(_deleteProduct(product));
-    history.push('/products');
+    window.location.assign('/admin')
+    // history.push('/admin');
   };
 };
 
