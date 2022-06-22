@@ -1,3 +1,4 @@
+
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
@@ -15,6 +16,7 @@ import ShoppingCart from './components/ShoppingCart';
 import AddProduct from './components/Admin/AddProduct';
 import AllProductsAdmin from './components/Admin/AllProductsAdmin';
 import EditProduct from './components/Admin/EditProduct';
+
 /**
  * COMPONENT
  */
@@ -25,7 +27,9 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn, isAdmin } = this.props;
-    const token = window.localStorage.getItem('token');
+
+    const token = window.localStorage.getItem("token");
+
 
     return (
       <div>
@@ -38,6 +42,7 @@ class Routes extends Component {
             <Route path="/products" component={AllPokemonView} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/users/profile/:id/orders" component={Orders} />
             <Route path="/users/profile/:id" component={User} />
             <Route path="/users/edit/:id" component={EditProfile} />
             <Route path="/users/all" component={AllUsers} />
@@ -58,7 +63,6 @@ class Routes extends Component {
             <Route path="/products/:id(\d+)" component={SinglePokemonView} />
             <Route path="/users/:id(\d+)" component={User} />
             <Route path="/products" component={AllPokemonView} />
-            <Route path="/orders" component={Orders} />
             <Route path="/checkout" component={ShoppingCart} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />

@@ -82,7 +82,7 @@ export const deleteProduct = (id, history) => {
 
 export const fetchOrderProducts = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.get(`/${id}/orders/pokemon`);
+    const { data } = await axios.get(`/orders/${id}/pokemon`);
     dispatch(_fetchOrderProducts(data));
   } catch (error) {
     console.log(error);
