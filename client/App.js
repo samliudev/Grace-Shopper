@@ -1,26 +1,26 @@
 import React, {useEffect} from 'react'
 import Navbar from './components/Navbar'
 import Routes from './Routes'
-import {Link} from 'react-router-dom'
 import {setCart} from './store/cart'
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
+
 
 
 const App = () => {
+
   const dispatch = useDispatch()
-  useEffect(() => {
-    const oldCart = localStorage.getItem('cart');
-    if (oldCart){
-      const oldCartJSON = JSON.parse(oldCart)
-      dispatch(setCart(oldCartJSON))
-    }
+
+  
+  useEffect(async() => {
+    const oldCart = await localStorage.getItem('cart');
+    const oldCartJSON = await JSON.parse(oldCart)
+    await dispatch(setCart(oldCartJSON))
   },[])
 
   return (
     <div>
 
       <Navbar />
-      <Link to= "/checkout">Cart</Link>
       <Routes />
 
     </div>

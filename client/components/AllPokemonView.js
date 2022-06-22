@@ -19,7 +19,7 @@ export default function AllPokemonView() {
 
   const addPokemonToCart = async(pokemon) => {
     await dispatch(addToCart(pokemon))
-    localStorage.setItem('cart', JSON.stringify(cart))
+    await localStorage.setItem('cart', JSON.stringify(cart))
   }
 
   useEffect(() => {

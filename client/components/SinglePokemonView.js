@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Box, Button, makeStyles } from '@material-ui/core';
 import PokemonCard from './PokemonCard';
+import { addToCart } from '../store/cart';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -29,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SinglePokemonView = ({ pokemon }) => {
+  const cart = useSelector((state) => state.cartReducer.cart);
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
@@ -39,12 +45,18 @@ const SinglePokemonView = ({ pokemon }) => {
     setOpen(false);
   };
 
+  const addPokemonToCart = async(pokemon) => {
+    await dispatch(addToCart(pokemon))
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }
+
   const body = (
     <div style={modalStyle} className={classes.paper} align="center">
       <h2 id="simple-modal-title">{pokemon.pokemon_name.toUpperCase()}</h2>
       <img height="500" src={pokemon.imageUrl} alt="" />
       <p id="simple-modal-description">{pokemon.description}</p>
       <p style={{ fontWeight: 600 }}>{`$${(pokemon.price / 100).toFixed(2)}`}</p>
+      <button onClick={() => addPokemonToCart(pokemon)}>Add to Cart</button>
     </div>
   );
 
