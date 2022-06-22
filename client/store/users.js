@@ -52,7 +52,8 @@ export const fetchUser = (id) => async (dispatch) => {
 
 export const fetchUsers = () => {
     return async (dispatch) => {
-        const { data: users } = await axios.get('/api/users');
+      const token = window.localStorage.getItem('token');
+        const { data: users } = await axios.get('/api/users', { users, token });
         dispatch(_fetchUsers(users));
     };
 };

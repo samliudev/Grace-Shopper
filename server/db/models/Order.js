@@ -3,11 +3,7 @@ const db = require("../db");
 
 const Order = db.define("order", {
   items: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
-    allowNull: false,
-  },
-  priceAtPurchase: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   total: {
