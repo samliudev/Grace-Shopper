@@ -10,6 +10,7 @@ export default function AdminView({ isAdmin }) {
     <div>
       <h2>Administrator View</h2>
 
+
       <h3>
         <Link to="/products">Products</Link>
       </h3>
@@ -19,8 +20,13 @@ export default function AdminView({ isAdmin }) {
       <h3>
         <Link to="/admin/products/edit/:id">Edit Product</Link>
       </h3>
+
+    <h3><ManageUsers /></h3>
       <AllProductsAdmin />
-      <h3>{/* <ManageUsers /> */}</h3>
+     
+
+      
+
     </div>
   );
 }
