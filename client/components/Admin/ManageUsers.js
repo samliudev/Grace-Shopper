@@ -23,6 +23,7 @@ export default function ManageUsers() {
       {users.map((users) => {
         return (
           <div key={users.id}>
+            <h3>User Id: {users.id}</h3>
             <p> Usersname: {users.username}</p>
             <p> First Name: {users.firstName} </p>
             <p> Last Name: {users.lastName} </p>

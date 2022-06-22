@@ -22,8 +22,6 @@ function User() {
     fetchData(id);
   }, [id]);
 
-  console.log("params", id);
-
   return (
     <>
     <Card>

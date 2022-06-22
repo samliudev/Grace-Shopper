@@ -9,6 +9,7 @@ export default function AdminView({ isAdmin }) {
   return (
     <div>
       <h2>Administrator View</h2>
+
       <AllProductsAdmin />
       <h3>
         <Link to="/admin/products">Products</Link>
@@ -19,7 +20,7 @@ export default function AdminView({ isAdmin }) {
       <h3>
         <Link to="/admin/products/edit/:id">Edit Product</Link>
       </h3>
-      <h3>{/* <ManageUsers /> */}</h3>
+      <h3><ManageUsers /></h3>
     </div>
   );
 }
