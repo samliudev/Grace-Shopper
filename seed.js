@@ -20,7 +20,7 @@ const pokemonArr = [
   {
     pokemon_name: 'venusaur',
     type: 'Grass, Poison',
-    iamgeUrl: 'https://i.imgur.com/0liEa8F.jpeg',
+    imageUrl: 'https://i.imgur.com/0liEa8F.jpeg',
     price: Math.floor(Math.random() * 10000),
     description: 'Its plant blooms when it is absorbing solar energy. It stays on the move to seek sunlight.',
     quantity: 10,

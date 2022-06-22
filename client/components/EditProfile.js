@@ -1,121 +1,90 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchUser, updateUser, fetchUsers } from "../store/users";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { FormControl, Card, Button, TextField } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../store/user";
+import { updateUser } from "../store/user";
+import { useParams } from 'react-router-dom';
 
-class Edit extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      address: "",
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  async componentDidMount() {
-    const user = await this.props.fetchUser(this.props.match.params.id)
-    this.setState({
-      username: this.props.user.username,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      address: user.address,
-
-    });
-  }
-
-  handleChange(event) {
-    const targetName = event.target.name;
-    const newValue = event.target.value;
-    this.setState({
-      [targetName]: newValue,
-    });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    this.props.updateUser(this.state);
-    this.setState({
-      username: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      address: "",
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <div>
-          {/* hard coded link for testing */}
-          <Link to="/users/1/profile">Back To Account</Link>
-          <h2 >Edit Profile</h2>
-        </div>
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              <input
-                onChange={this.handleChange}
-                value={this.state.email}
-                name="email"
-                type="text"
-              />
-              <label>Email: </label>
-            </div>
-
-            <div>
-              <input
-                onChange={this.handleChange}
-                value={this.state.firstName}
-                name="firstName"
-                type="text"
-              />
-              <label>First Name: </label>
-            </div>
-
-            <div>
-              <input
-                onChange={this.handleChange}
-                value={this.state.lastName}
-                name="lastName"
-                type="text"
-              />
-              <label>Last Name: </label>
-            </div>
-
-            <p>
-            <button type="button" onClick={this.handleSubmit}> Save Changes </button>
-            </p>
-          </form>
-        </div>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    id: state.auth.id,
-    user: state.user,
-    users: state.users
-  };
+const emptyUser = {
+  username: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  address: "",
+  phoneNumber: "",
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateUser: (user) => dispatch(updateUser(user)),
-    fetchUser: (id) => dispatch(fetchUser(id)),
-    fetchUsers: () => dispatch(fetchUsers())
+const EditProfile = () => {
+  const dispatch = useDispatch();
+  let userStore = useSelector((state) => state.users);
+  const { id } = useParams();
+  const [user, setUser] = useState(userStore);
+  console.log("Getting store", userStore);
 
+  console.log("user log", user);
+  const onChange = (event) => {
+    const newUser = { ...user };
+    newUser[event.target.id] = event.target.value;
+    setUser(newUser);
   };
-};
+  const handleSubmit = () => {
+    if (user) {
+      dispatch(updateUser(id, user));
+    }
+  };
 
-const EditProfile = connect(mapStateToProps, mapDispatchToProps)(Edit);
+  useEffect(() => {
+    setUser(userStore);
+  }, [userStore]);
+
+  return (
+    <div>
+      <Card>
+        <h2>Edit Profile</h2>
+        <FormControl style={{ padding: "1rem" }}>
+          <TextField
+            onChange={onChange}
+            value={user.username}
+            id={"username"}
+            label={"Username"}
+          />
+          <TextField
+            onChange={onChange}
+            value={user.firstName}
+            id={"firstName"}
+            label={"First Name"}
+          />
+          <TextField
+            onChange={onChange}
+            value={user.lastName}
+            id={"lastName"}
+            label={"Last Name"}
+          />
+          <TextField
+            onChange={onChange}
+            value={user.email}
+            id={"email"}
+            label={"Email"}
+          />
+          <TextField
+            onChange={onChange}
+            value={user.address}
+            id={"address"}
+            label={"Address"}
+          />
+          <TextField
+            type={"number"}
+            onChange={onChange}
+            value={user.phoneNumber}
+            id={"phoneNumber"}
+            label={"Phone Number"}
+          />
+
+          <Button onClick={handleSubmit}>Save Changes</Button>
+        </FormControl>
+      </Card>
+    </div>
+  );
+};
 
 export default EditProfile;

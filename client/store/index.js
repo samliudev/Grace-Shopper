@@ -11,7 +11,7 @@ import usersReducer from './users';
 
 
 
-const reducer = combineReducers({ auth, products: productsReducer, orders: ordersReducer, users: userReducer, cartReducer });
+const reducer = combineReducers({ auth, products: productsReducer, orders: ordersReducer, user: userReducer, users: usersReducer, cartReducer });
 
 
 
