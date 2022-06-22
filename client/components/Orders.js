@@ -57,7 +57,6 @@ function Orders() {
               {Array.isArray(pokemon[order.id]) &&
               Array.isArray(description[order.id])
                 ? mergePokemonAndDescription(order.id).map((poke) => {
-                    console.log(poke);
                     return (
                       <div key={poke.id}>
                         <img src={poke.imageUrl} />
