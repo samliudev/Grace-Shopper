@@ -36,6 +36,7 @@
     "pg": "^8.5.1",
     "react-stripe-checkout": "^2.6.3",
     "sequelize": "^6.3.5",
+    "serve": "^14.0.1",
     "stripe": "^9.9.0"
   },
   "devDependencies": {
