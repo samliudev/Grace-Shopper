@@ -3,23 +3,27 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
-"react-router-dom";
+("react-router-dom");
 import { useParams, Route } from "react-router-dom";
-import { useSelector } from 'react-redux';
-
-
+import { useSelector } from "react-redux";
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => {
   const cart = useSelector((state) => state.cartReducer.cart);
-  // let cartQuantity = cart.map(pokemon => pokemon.currentQuantity)
-  // // console.log('Navbar', cartQuantity)
-  // let total = 0
-  // for (let i = 0; i < cartQuantity.length; i++) {
-  //   total += cartQuantity[i]
-  // }
-  // console.log('NavbarTotal',total)
+  const [cartQuantity, setCardQuantity] = useState();
 
+  let total = 0;
 
+  useEffect(() => {
+    setCardQuantity(cart.map((pokemon) => pokemon.currentQuantity));
+  }, []);
+
+  useEffect(() => {
+    if (cartQuantity) {
+      for (let i = 0; i < cartQuantity.length; i++) {
+        total += cartQuantity[i];
+      }
+    }
+  }, [cartQuantity]);
 
   return (
     <div>
@@ -27,12 +31,11 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => {
       <nav className="nav">
         {isLoggedIn ? (
           <div>
-
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
             <Link to="/products">Products</Link>
             <Link to={`/users/profile/${user}`}>Account</Link>
-            <Link to= "/checkout">Cart</Link>
+            <Link to="/checkout">Cart {total}</Link>
             {/* route still needs to be conneced to users id */}
             <a href="#" onClick={handleClick}>
               Logout
@@ -46,15 +49,13 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => {
             <Link to="/products">Products</Link>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
-            <Link to= "/checkout">Cart</Link>
-
+            <Link to="/checkout">Cart {total}</Link>
           </div>
         )}
       </nav>
       <hr />
     </div>
   );
-
 };
 
 /**
@@ -64,7 +65,7 @@ const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
     isAdmin: state.auth.isAdmin,
-    user: state.auth.id
+    user: state.auth.id,
   };
 };
 

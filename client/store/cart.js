@@ -54,7 +54,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       const pokemonAdded = action.payload.pokemon;
-      const inCart = state.cart.find((pokemonInCart) =>
+      const inCart = state.cart?.find((pokemonInCart) =>
       pokemonInCart.id === pokemonAdded.id ? true : false
       );
 
