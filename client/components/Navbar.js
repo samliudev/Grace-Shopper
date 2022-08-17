@@ -11,12 +11,12 @@ import { useSelector } from 'react-redux';
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => {
   const cart = useSelector((state) => state.cartReducer.cart);
-  let cartQuantity = cart.map(pokemon => pokemon.currentQuantity)
-  // console.log('Navbar', cartQuantity)
-  let total = 0
-  for (let i = 0; i < cartQuantity.length; i++) {
-    total += cartQuantity[i]
-  }
+  // let cartQuantity = cart.map(pokemon => pokemon.currentQuantity)
+  // // console.log('Navbar', cartQuantity)
+  // let total = 0
+  // for (let i = 0; i < cartQuantity.length; i++) {
+  //   total += cartQuantity[i]
+  // }
   // console.log('NavbarTotal',total)
 
 
@@ -32,7 +32,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => {
             <Link to="/home">Home</Link>
             <Link to="/products">Products</Link>
             <Link to={`/users/profile/${user}`}>Account</Link>
-            <Link to= "/checkout">Cart {total}</Link>
+            <Link to= "/checkout">Cart</Link>
             {/* route still needs to be conneced to users id */}
             <a href="#" onClick={handleClick}>
               Logout
@@ -46,7 +46,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => {
             <Link to="/products">Products</Link>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
-            <Link to= "/checkout">Cart {total}</Link>
+            <Link to= "/checkout">Cart</Link>
 
           </div>
         )}
